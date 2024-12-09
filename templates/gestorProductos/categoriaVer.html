@@ -1,0 +1,69 @@
+{% extends 'base/base.html' %}
+
+{% block title %} Categorías {% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="alert alert-info text-center mb-4">
+        <h2>Categorías 📚</h2>
+    </div>
+
+    {% if user.is_authenticated and user.is_superuser %}
+    <!--botón para ir a registrar categoría-->
+        <a href="{% url 'categoriaRegistro' %}" class="btn btn-primary btn-info"><i class="bi bi-plus-circle"></i></a>
+        <table id="Tabla" class="table">
+            <thead>
+                <tr class="table-primary">
+                    <th scope="col">ID</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if categorias %}
+                    {% for cat in categorias %}
+                        <tr class="table-light">
+                            <th scope="row">{{ cat.id }}</th>
+                            <td>{{ cat.nombre }}</td>
+                            <td>{{ cat.descripcion }}</td>
+                            <td>
+                                <a href="{% url 'categoriaEditar' cat.id %}" class="btn btn-warning"><i class="bi bi-pencil"></i></a>
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminar{{ cat.id }}">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Modal de confirmación eliminar categorías https://youtu.be/A-bt0UU_4WE?si=NO1hXKLw6Offws1X-->
+                        <div class="modal fade" id="modalEliminar{{ cat.id }}" tabindex="-1" aria-labelledby="modalEliminarLabel{{ cat.id }}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="modalEliminarLabel{{ cat.id }}">Eliminar Categoría</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ¿Está seguro de que desea eliminar la categoría "{{ cat.nombre }}"?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-info" data-bs-dismiss="modal">Cancelar</button>
+                                        <a href="{% url 'categoriaEliminar' cat.id %}" class="btn btn-danger">Eliminar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Fin modal -->
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center">No hay categorías registradas</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="text-center text-danger">Acceso denegado. Solo los administradores pueden ver esta página.</p>
+    {% endif %}
+</div>
+{% endblock %}

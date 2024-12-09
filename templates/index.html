@@ -1,0 +1,53 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+Chuky PB
+{% endblock %}
+
+{% block content %}
+<div class="text-center my-5">
+    <h1>Bienvenidos a Chuky PB</h1>
+    <p class="lead">Cuidamos de tus mascotas con amor y dedicación.</p>
+</div>
+
+<div class="container">
+    <section id="services" class="my-5">
+        <h2 class="text-center">Nuestros Servicios</h2>
+        <div class="row text-center">
+            <div class="col-md-4">
+                <i class="bi bi-heart-pulse-fill display-4 text-primary"></i>
+                <h4>Consulta Veterinaria</h4>
+                <p>Atención médica para garantizar la salud de tu mascota.</p>
+            </div>
+            <div class="col-md-4">
+                <i class="bi bi-bandaid-fill display-4 text-success"></i>
+                <h4>Vacunación</h4>
+                <p>Vacunas esenciales para proteger a tus amigos peludos.</p>
+            </div>
+            <div class="col-md-4">
+                <i class="bi bi-box-seam display-4 text-warning"></i>
+                <h4>Productos</h4>
+                <p>Alimentos, juguetes y accesorios de calidad.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="about" class="my-5">
+        <h2 class="text-center">¿Quiénes Somos?</h2>
+        <p>
+             En <strong>Chuky PB</strong>, somos una clínica veterinaria apasionada por el bienestar animal. 
+            Nuestro equipo de profesionales está comprometido en ofrecer los mejores servicios y productos para el cuidado de tus mascotas.
+        </p>
+    </section>
+
+    <!--mostar solo si no se ha iniciado sesión-->
+    {% if not user.is_authenticated %}
+    <!-- ir hacia el login -->
+    <section id="admin" class="text-center my-5">
+        <h3>¿Eres Administrador?</h3>
+        <a href="{% url 'login' %}" class="btn btn-primary">Accede al Panel Administrativo</a>
+    </section>
+    {% endif %}
+</div>
+{% endblock %}

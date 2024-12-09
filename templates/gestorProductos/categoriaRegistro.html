@@ -1,0 +1,54 @@
+{% extends 'base/base.html' %}
+
+{% block title %} Registrar Categoría {% endblock %}
+
+{% block content %}
+<!--verificar si el usuario está logueado-->
+{% if user.is_authenticated %}
+
+<div class="container my-5">
+    {% if user.is_superuser %}
+    <div class="alert alert-info text-center mb-4">
+        <h2>Formulario - Crear Categoría 💾</h2>
+    </div>
+
+    <form method="POST" class="col-8 offset-2 border-3 border-info rounded p-4 shadow">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre de la Categoría</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="nombre" 
+                name="nombre" 
+                placeholder="Ingrese el nombre de la categoría" 
+                required>
+        </div>
+        <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea 
+                class="form-control" 
+                id="descripcion" 
+                name="descripcion" 
+                rows="3" 
+                placeholder="Ingrese una breve descripción" 
+                required></textarea>
+        </div>
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary">Registrar Categoría</button>
+        </div>
+    </form>
+
+    <div class="text-center mt-3">
+        <a href="{% url 'categoriaData' %}" class="btn btn-outline-secondary">Cancelar</a>
+    </div>
+
+    {% else %}
+    <div class="alert alert-danger text-center">
+        <h4>Acceso Restringido</h4>
+        <p>Solo los administradores pueden registrar nuevas categorías.</p>
+    </div>
+    {% endif %}
+{% endif %}
+</div>
+{% endblock %}
