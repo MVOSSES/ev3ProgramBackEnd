@@ -1,0 +1,13 @@
+Cuentas precreadas
+
+Administrador:
+Phokas
+123
+
+Usuario normal:
+Felipe
+seleccionchilena1
+
+Usuario normal:
+Gonzalo
+aguantecolocolo1
